@@ -1,0 +1,27 @@
+<%= f.error_messages %>
+
+<p><%= f.label :name %><br />
+<%= f.text_field :name %></p>
+
+<p><%= f.label :email %><br />
+<%= f.text_field :email %></p>
+
+<p><%= f.label :password %><br />
+<%= f.password_field :password %></p>
+
+<p><%= f.label :password_confirmation %><br />
+<%= f.password_field :password_confirmation %></p>
+
+<% if can? :manage, @users %>
+    <div class="field">
+      <%= f.label :roles %>
+      <div class="controls">
+        <% RoleType.all.each do |role| %>
+            <%= check_box_tag "user[role_type_ids][]", role.id, @user.role_ids.include?(role.id) %>
+            <%= role.name %><br />
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<p><%= f.submit "Submit" %></p>
